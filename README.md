@@ -33,6 +33,7 @@ Vamos a realizar una página web de combates Pokemon en el servidor. A continuac
    - Por turno, el daño que recibe un Pokémon será igual a:
      ```
      Daño = Ataque del Atacante - Defensa del Defensor + 2
+     Añadir probabilidad de critico
      ```
    - Si el resultado es menor a 0, el daño mínimo será **1** punto de vida.
    - El primer atacante por ronda será el Pokémon con mayor velocidad.
