@@ -1,17 +1,36 @@
-body{
+body {
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    height: 100%;
 }
 
-.player1{
-    float:left;
+.container {
+    display: flex;
+    width: 70%;
+    min-height: 600px;
 }
 
-.player2{
-    float:right;
+.player1 {
+    width: 50%;
+    text-align: center;
+    background-color: rgb(0, 153, 255);
 }
 
-#pkCombat{
+.player2 {
+    width: 50%;
+    text-align: center;
+    background-color: rgb(234, 21, 21);
+}
+
+#pkCombat {
     width: 50%;
     height: 70%;
 }
+
+aside {
+    width: 20%;
+    padding: 20px;
+    text-align: center;
+}
+
