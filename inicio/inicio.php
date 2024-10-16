@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Combates pokemon</title>
+    <link rel="stylesheet" href="inicio.css">
 </head>
 
 <body>
@@ -30,22 +31,26 @@
 
     if (isset($_POST["pve"])) {
         $modo = "pve";
+        echo preaty_print(equipo_random($pokedex));
     } elseif (isset($_POST["pvp"])) {
         $modo = "pvp";
     } else {
         echo "ningun boton pulsado";
     }
 
+    //funcion para generar equipos aleatorios sin pokemons repetidos
     function equipo_random($pokedex){
         
         $equipo = [];
+        $tamaño_pokedex = count($pokedex)-1;
         for($i = 0; $i < 3 ; $i++){
-            $random = rand(0,5);
+            $random = rand(0,$tamaño_pokedex);
             $repe = false;
             $poke_random = $pokedex[$random];
             foreach($equipo as $poke){
                 if($poke_random["name"]==$poke["name"]){
                     $repe = true;
+                    break;
                 }
             }
             if($repe){

@@ -54,5 +54,23 @@ $gengar = [
                 "img"=>"<a href='https://pokemondb.net/pokedex/gengar'><img src='https://img.pokemondb.net/sprites/black-white/normal/gengar.png' alt='Gengar'></a>",
             ];
 
+$hydreigon = [
+                "name"=>"hydreigon",
+                "hp"=>92,
+                "ataque"=>105,
+                "def"=>90,
+                "spe"=>98,
+                "img"=>"<a href='https://pokemondb.net/pokedex/hydreigon'><img src='https://img.pokemondb.net/sprites/black-white/anim/normal/hydreigon.gif' alt='Hydreigon'></a>",
+            ];
 
-$pokedex = [$garchomp,$charizard,$typhlosion,$umbreon,$vaporeon,$gengar,];
+$crobat = [
+                "name"=>"crobat",
+                "hp"=>85,
+                "ataque"=>90,
+                "def"=>80,
+                "spe"=>130,
+                "img"=>"<a href='https://pokemondb.net/pokedex/crobat'><img src='https://img.pokemondb.net/sprites/black-white/anim/normal/crobat.gif' alt='Crobat'></a>",
+            ];
+
+
+$pokedex = [$garchomp,$charizard,$typhlosion,$umbreon,$vaporeon,$gengar,$hydreigon,$crobat];
