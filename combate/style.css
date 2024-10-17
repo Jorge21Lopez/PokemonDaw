@@ -1,0 +1,83 @@
+html, body {
+    height: 99%;
+    margin: 5px;
+    margin-bottom: 5px;
+}
+
+body {
+    display: flex;
+}
+
+.container {
+    display: flex;
+    width: 70%;
+}
+
+.player1 {
+    width: 52%;
+    text-align: center;
+    background-color: rgb(0, 153, 255);
+}
+
+.player2 {
+    width: 52%;
+    text-align: center;
+    background-color: rgb(234, 21, 21);
+}
+
+#pkCombat {
+    width: 50%;
+    height: 70%;
+}
+
+aside {
+    width: 25%;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+    height: 94%;
+    margin-left: 1px;
+    overflow-y: scroll;
+    background-color: #f4f4f4; /* Fondo claro para mayor contraste */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar el registro */
+}
+
+aside > h1 {
+    text-decoration: underline;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.log {
+    margin-top: 10px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+/* Estilo de cada entrada de log */
+.log p {
+    background-color: #fff; /* Fondo blanco para mayor contraste */
+    color: #333; /* Texto oscuro */
+    border: 1px solid #ccc;
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 8px; /* Espacio interno */
+    margin-bottom: 8px; /* Espacio entre párrafos */
+    font-family: Arial, sans-serif; /* Fuente más legible */
+    font-size: 14px; /* Tamaño de fuente ajustado */
+    line-height: 1.4; /* Espaciado entre líneas */
+    text-align: left; /* Alinear el texto a la izquierda */
+}
+
+/* Scrollbar customizado para el aside */
+aside::-webkit-scrollbar {
+    width: 8px;
+}
+
+aside::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
