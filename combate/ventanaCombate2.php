@@ -25,40 +25,42 @@ function obtenerVidaTotal($nombrePk) {
 }
 
 if (isset($_GET['namePk'])) {
-    $nombrePk1 = $_GET['namePk'];
-    $vidaTotalPk1 = obtenerVidaTotal($nombrePk1);
-    if ($vidaTotalPk1) {
-        if (!in_array($nombrePk1, array_column($_SESSION['equipo1'], 'nombre'))) {
-            $_SESSION['equipo1'][] = [
-                'nombre' => $nombrePk1,
-                'vida_total' => $vidaTotalPk1,
-                'vida_actual' => $vidaTotalPk1,
-                'img' => infoPokemon($nombrePk1)['img']
-            ];
+    foreach ($_GET['namePk'] as $nombrePk1) {
+        $vidaTotalPk1 = obtenerVidaTotal($nombrePk1);
+        if ($vidaTotalPk1) {
+            if (!in_array($nombrePk1, array_column($_SESSION['equipo1'], 'nombre'))) {
+                $_SESSION['equipo1'][] = [
+                    'nombre' => $nombrePk1,
+                    'vida_total' => $vidaTotalPk1,
+                    'vida_actual' => $vidaTotalPk1,
+                    'img' => infoPokemon($nombrePk1)['img']
+                ];
+            } else {
+                logCombate("Pokémon '{$nombrePk1}' ya está en el equipo 1.");
+            }
         } else {
-            logCombate("Pokémon '{$nombrePk1}' ya está en el equipo.");
+            logCombate("Pokémon '{$nombrePk1}' no encontrado.");
         }
-    } else {
-        logCombate("Pokémon '{$nombrePk1}' no encontrado.");
     }
 }
 
 if (isset($_GET['namePk2'])) {
-    $nombrePk2 = $_GET['namePk2'];
-    $vidaTotalPk2 = obtenerVidaTotal($nombrePk2);
-    if ($vidaTotalPk2) {
-        if (!in_array($nombrePk2, array_column($_SESSION['equipo2'], 'nombre'))) {
-            $_SESSION['equipo2'][] = [
-                'nombre' => $nombrePk2,
-                'vida_total' => $vidaTotalPk2,
-                'vida_actual' => $vidaTotalPk2,
-                'img' => infoPokemon($nombrePk2)['img']
-            ];
+    foreach ($_GET['namePk2'] as $nombrePk2) {
+        $vidaTotalPk2 = obtenerVidaTotal($nombrePk2);
+        if ($vidaTotalPk2) {
+            if (!in_array($nombrePk2, array_column($_SESSION['equipo2'], 'nombre'))) {
+                $_SESSION['equipo2'][] = [
+                    'nombre' => $nombrePk2,
+                    'vida_total' => $vidaTotalPk2,
+                    'vida_actual' => $vidaTotalPk2,
+                    'img' => infoPokemon($nombrePk2)['img']
+                ];
+            } else {
+                logCombate("Pokémon '{$nombrePk2}' ya está en el equipo 2.");
+            }
         } else {
-            logCombate("Pokémon '{$nombrePk2}' ya está en el equipo.");
+            logCombate("Pokémon '{$nombrePk2}' no encontrado.");
         }
-    } else {
-        logCombate("Pokémon '{$nombrePk2}' no encontrado.");
     }
 }
 
@@ -71,7 +73,6 @@ function logCombate($message){
     $log[] = $message;
 }
 
-
 function realizarCombate() {
     global $equipo1, $equipo2, $log;
 
@@ -79,45 +80,55 @@ function realizarCombate() {
         return true;
     }
 
-    $atacante = &$equipo1[0];
-    $defensor = &$equipo2[0];
-
-    $damage = rand(10, 20);
-    $defensor['vida_actual'] -= $damage;
-
-    logCombate("El Pokémon {$atacante['nombre']} ataca a {$defensor['nombre']} infligiendo $damage puntos de daño.");
-
-    if ($defensor['vida_actual'] <= 0) {
-        logCombate("¡{$defensor['nombre']} ha sido derrotado!");
-        array_shift($equipo2);
-
-        if (empty($equipo2)) {
-            logCombate("¡El equipo 1 ha ganado el combate!");
-            return true;
+    $pk1 = null;
+    foreach ($equipo1 as &$pokemon1) {
+        if ($pokemon1['vida_actual'] > 0) {
+            $pk1 = &$pokemon1;
+            break;
         }
     }
 
-    if (!empty($equipo2)) {
-        $atacante = &$equipo2[0];
-        $defensor = &$equipo1[0];
-        $damage = rand(10, 20);
-        $defensor['vida_actual'] -= $damage;
+    if (!$pk1) {
+        logCombate("¡El equipo 2 ha ganado el combate!");
+        return true;
+    }
 
-        logCombate("El Pokémon {$atacante['nombre']} ataca a {$defensor['nombre']} infligiendo $damage puntos de daño.");
+    $pk2 = null;
+    foreach ($equipo2 as &$pokemon2) {
+        if ($pokemon2['vida_actual'] > 0) {
+            $pk2 = &$pokemon2;
+            break;
+        }
+    }
 
-        if ($defensor['vida_actual'] <= 0) {
-            logCombate("¡{$defensor['nombre']} ha sido derrotado!");
-            array_shift($equipo1);
+    if (!$pk2) {
+        logCombate("¡El equipo 1 ha ganado el combate!");
+        return true;
+    }
 
-            if (empty($equipo1)) {
-                logCombate("¡El equipo 2 ha ganado el combate!");
-                return true;
-            }
+    $damage1 = rand(10, 20);
+    $pk2['vida_actual'] -= $damage1;
+    logCombate("El Pokémon {$pk1['nombre']} ataca a {$pk2['nombre']} infligiendo $damage1 puntos de daño.");
+
+    if ($pk2['vida_actual'] <= 0) {
+        $pk2['vida_actual'] = 0;
+        logCombate("¡{$pk2['nombre']} ha sido derrotado!");
+    }
+
+    if ($pk2['vida_actual'] > 0) {
+        $damage2 = rand(10, 20);
+        $pk1['vida_actual'] -= $damage2;
+        logCombate("El Pokémon {$pk2['nombre']} ataca a {$pk1['nombre']} infligiendo $damage2 puntos de daño.");
+
+        if ($pk1['vida_actual'] <= 0) {
+            $pk1['vida_actual'] = 0;
+            logCombate("¡{$pk1['nombre']} ha sido derrotado!");
         }
     }
 
     $_SESSION['equipo1'] = $equipo1;
     $_SESSION['equipo2'] = $equipo2;
+
     return false;
 }
 
@@ -127,8 +138,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['cerrar_sesion'])) {
 }
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -150,14 +159,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['cerrar_sesion'])) {
                         <div class="pokemon-image">
                             <?php echo ($pk['img']); ?>
                         </div>
+                        <?php if ($pk['vida_actual'] <= 0): ?>
+                            <p style="color: red;">¡Derrotado!</p>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </div>
+            
             <?php if (!empty($equipo1)): ?>
                 <div class="pkAct1">
                     <h4>Pokémon Activo: <?php echo htmlspecialchars(ucfirst($equipo1[0]['nombre'])); ?></h4>
                     <p>HP: <?php echo htmlspecialchars($equipo1[0]['vida_total']); ?> / <?php echo htmlspecialchars($equipo1[0]['vida_actual']); ?> hp</p>
-                    <?php echo ($equipo1[0]['img']); ?>
+                    <?php if ($equipo1[0]['vida_actual'] > 0): ?>
+                        <!-- Mostrar la imagen del Pokémon si tiene vida -->
+                        <?php echo ($equipo1[0]['img']); ?>
+                    <?php else: ?>
+                        <!-- Mostrar que está derrotado -->
+                        <p style="color: red;">¡Derrotado!</p>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 
@@ -186,14 +205,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['cerrar_sesion'])) {
                         <div class="pokemon-image">
                             <?php echo ($pk['img']); ?>
                         </div>
+                        <?php if ($pk['vida_actual'] <= 0): ?>
+                            <p style="color: red;">¡Derrotado!</p>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </div>
+            
             <?php if (!empty($equipo2)): ?>
                 <div class="pkAct2">
                     <h4>Pokémon Activo: <?php echo htmlspecialchars(ucfirst($equipo2[0]['nombre'])); ?></h4>
                     <p>HP: <?php echo htmlspecialchars($equipo2[0]['vida_total']); ?> / <?php echo htmlspecialchars($equipo2[0]['vida_actual']); ?> hp</p>
-                    <?php echo ($equipo2[0]['img']); ?>
+                    <?php if ($equipo2[0]['vida_actual'] > 0): ?>
+                        <!-- Mostrar la imagen del Pokémon si tiene vida -->
+                        <?php echo ($equipo2[0]['img']); ?>
+                    <?php else: ?>
+                        <!-- Mostrar que está derrotado -->
+                        <p style="color: red;">¡Derrotado!</p>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -210,3 +239,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['cerrar_sesion'])) {
     </aside>
 </body>
 </html>
+
