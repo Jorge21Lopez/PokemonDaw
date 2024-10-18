@@ -68,7 +68,7 @@ function select_pokemons($equipo, $pokedex)
 include '../pokedex.php';
 $player1 = []; //jugaror 1
 $player2 = []; //jugador 2 o la IA
-$longitud_pokedex = count($pokedex) - 1;
+$longitud_pokedex = count($pokedex);
 
 ?>
 
@@ -172,8 +172,6 @@ $longitud_pokedex = count($pokedex) - 1;
 
 
     ?>
-
-    <button id="btn_ocultar">
 
 
 

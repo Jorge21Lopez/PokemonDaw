@@ -48,8 +48,8 @@ function no_repes($equipo)
 function select_pokemons($equipo, $pokedex)
 {
 
-    $longitud_equipo = count($equipo) - 1;
-    $longitud_pokedex = count($pokedex) - 1;
+    $longitud_equipo = count($equipo);
+    $longitud_pokedex = count($pokedex);
     $equipo_final = [];
 
 
@@ -68,7 +68,7 @@ function select_pokemons($equipo, $pokedex)
 include '../pokedex.php';
 $player1 = []; //jugaror 1
 $player2 = []; //jugador 2 o la IA
-$longitud_pokedex = count($pokedex) - 1;
+$longitud_pokedex = count($pokedex);
 
 ?>
 
@@ -83,8 +83,9 @@ $longitud_pokedex = count($pokedex) - 1;
 </head>
 
 <body>
-    <div id="jugador1">
-        <form action="pvp.php" method="post">
+
+    <form action="pvp.php" method="post">
+        <div id="jugador1">
             <label for="equipo1" name="equipo1">Selecciona los 6 pokemons del equipo 1</label>
             <br>
             <select id="select_eq1" name="eq1_1">
@@ -142,12 +143,9 @@ $longitud_pokedex = count($pokedex) - 1;
                 ?>
             </select>
 
-            <input type="submit" value="Validar equipo" name="equipo1">
-        </form>
-    </div>
-
-    <div id="jugador2">
-        <form action="pvp.php" method="post">
+        </div>
+        <!-- ---------------------------------------------------------------- -->
+        <div id="jugador2">
             <label for="equipo2" name="equipo2">Selecciona los 6 pokemons del equipo 2</label>
             <br>
             <select id="equipo2_poke1" name="eq2_1">
@@ -204,12 +202,18 @@ $longitud_pokedex = count($pokedex) - 1;
                 }
                 ?>
             </select>
+        </div>
+            <br>
+            <input type="submit" value="Validar equipo" name="equipos">
 
-            <input type="submit" value="Validar equipo2" name="equipo2">
-        </form>
-    </div>
-    <button id="btn_ocultar_jugador1">Ocultar datos player1</button>
-    <button id="btn_ocultar_jugador2">Ocultar datos player2</button>
+    </form>
+
+    <button id="btn_ocultar_jugador1" onclick="ocultarJugador1()">Ocultar datos player1</button>
+    <button id="btn_ocultar_jugador2" onclick="ocultarJugador2()">Ocultar datos player2</button>
+           
+
+
+
 
 
 
@@ -217,30 +221,37 @@ $longitud_pokedex = count($pokedex) - 1;
 
 
     $equipo1_validado = false;
+    $equipo2_validado = false;
 
 
-    if (isset($_POST["equipo1"])) {
+    if (isset($_POST["equipos"])) {
         for ($i = 1; $i <= 6; $i++) {
             $player1[] = $_POST["eq1_" . $i];
+            $player2[] = $_POST["eq2_" . $i];
         }
         if (no_repes($player1)) {
             $equipo1_validado = true;
-            echo "equipo valido mi rey";
+            echo "<br>equipo 1 valido mi rey<br>";
         } else {
             $equipo1_validado = false;
-            echo "equipo no valido jefe";
+            echo "<br>equipo1 no valido jefe <br>";
+        }
+        if (no_repes($player2)) {
+            $equipo2_validado = true;
+            echo "<br>equipo 2 valido mi rey<br>";
+        } else {
+            $equipo2_validado = false;
+            echo "<br>equipo2 no valido jefe<br>";
         }
     }
 
-    if ($equipo1_validado) {
+
+    if ($equipo1_validado && $equipo2_validado) {
         $player1_valido = select_pokemons($player1, $pokedex);
-        $player2_valido = equipo_random($pokedex);
+        $player2_valido = select_pokemons($player2, $pokedex);
         preaty_print($player1_valido);
         preaty_print($player2_valido);
     }
-
-
-
 
     ?>
 
