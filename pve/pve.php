@@ -48,8 +48,8 @@ function no_repes($equipo)
 function select_pokemons($equipo, $pokedex)
 {
 
-    $longitud_equipo = count($equipo)-1;
-    $longitud_pokedex = count($pokedex)-1;
+    $longitud_equipo = count($equipo);
+    $longitud_pokedex = count($pokedex);
     $equipo_final = [];
 
 

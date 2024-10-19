@@ -73,5 +73,50 @@ $crobat = [
                 "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/crobat.gif' alt='Crobat'></a>",
             ];
 
+$muk = [
+                "name"=>"muk",
+                "hp"=>105,
+                "ataque"=>105,
+                "def"=>75,
+                "spe"=>50,
+                "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/muk.gif' alt='Muk'></a>",
+            ];
 
-$pokedex = [$garchomp,$charizard,$typhlosion,$umbreon,$vaporeon,$gengar,$hydreigon,$crobat];
+$gliscor = [
+                "name"=>"gliscor",
+                "hp"=>75,
+                "ataque"=>95,
+                "def"=>125,
+                "spe"=>95,
+                "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/gliscor.gif' alt='Gliscor'></a>",
+            ];
+            
+$agron = [
+                "name"=>"aggron",
+                "hp"=>70,
+                "ataque"=>110,
+                "def"=>180,
+                "spe"=>50,
+                "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/aggron.gif' alt='Agron'></a>",
+            ];
+
+$haxorus = [
+                "name"=>"haxorus",
+                "hp"=>76,
+                "ataque"=>147,
+                "def"=>90,
+                "spe"=>97,
+                "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/haxorus.gif' alt='haxorus'></a>",
+            ];
+            
+$electivire = [
+                "name"=>"electivire",
+                "hp"=>75,
+                "ataque"=>123,
+                "def"=>125,
+                "spe"=>95,
+                "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/electivire.gif' alt='Electivire'></a>",
+            ]; 
+
+
+$pokedex = [$garchomp,$charizard,$typhlosion,$umbreon,$vaporeon,$gengar,$hydreigon,$crobat,$muk,$gliscor,$agron,$haxorus,$electivire,];
