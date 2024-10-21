@@ -79,13 +79,14 @@ $longitud_pokedex = count($pokedex);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PVP</title>
-    <link rel="stylesheet" href="pvp.css">
+    <link rel="stylesheet" href='estilos_pvp.css'>
+
 </head>
 
 <body>
 
-    <form action="pvp.php" method="post">
-        <div id="jugador1">
+    <form action="pvp.php" method="post" class="formulario_pokes">
+        <div id="jugador1" class="jugador1">
             <label for="equipo1" name="equipo1">Selecciona los 6 pokemons del equipo 1</label>
             <br>
             <select id="select_eq1" name="eq1_1">
@@ -203,14 +204,14 @@ $longitud_pokedex = count($pokedex);
                 ?>
             </select>
         </div>
-            <br>
-            <input type="submit" value="Validar equipo" name="equipos">
+        <br>
+        <input type="submit" value="Validar equipo" name="equipos">
 
     </form>
 
     <button id="btn_ocultar_jugador1" onclick="ocultarJugador1()">Ocultar datos player1</button>
     <button id="btn_ocultar_jugador2" onclick="ocultarJugador2()">Ocultar datos player2</button>
-           
+
 
 
 
