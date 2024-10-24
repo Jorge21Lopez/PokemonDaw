@@ -44,7 +44,7 @@ function no_repes($equipo)
     }
 }
 
-//recibe un array de strings y devuelve una matriz con los pokemons del array
+//recibe un array de strings y devuelve una matriz con los pokemons para su posterior visualización
 function select_pokemons($equipo, $pokedex)
 {
 
@@ -57,7 +57,7 @@ function select_pokemons($equipo, $pokedex)
         $poke = $equipo[$i];
         for($x = 0 ; $x< $longitud_pokedex ; $x++){
             if($poke===$pokedex[$x]["name"]){
-                $equipo_final[] = $pokedex[$x];
+                $equipo_final[] = ['name' => $pokedex[$x]['name'],'img' => $pokedex[$x]['img']];
                 break;
             }
         }
@@ -164,8 +164,13 @@ $longitud_pokedex = count($pokedex);
 
     if ($equipo1_validado) {
         $equipo2 = equipo_random($pokedex);
-        preaty_print($equipo1);
-        preaty_print($equipo2);
+
+
+        $pp_equipo1 = select_pokemons($equipo1,$pokedex);
+        $pp_equipo2 = select_pokemons($equipo2,$pokedex);
+        preaty_print($pp_equipo1);
+        echo "<br>-------------<br>";
+        preaty_print($pp_equipo2);
     }
 
 

@@ -55,9 +55,9 @@ function select_pokemons($equipo, $pokedex)
 
     for ($i = 0; $i < $longitud_equipo; $i++) {
         $poke = $equipo[$i];
-        for ($x = 0; $x < $longitud_pokedex; $x++) {
-            if ($poke === $pokedex[$x]["name"]) {
-                $equipo_final[] = $pokedex[$x];
+        for($x = 0 ; $x< $longitud_pokedex ; $x++){
+            if($poke===$pokedex[$x]["name"]){
+                $equipo_final[] = ['name' => $pokedex[$x]['name'],'img' => $pokedex[$x]['img']];
                 break;
             }
         }
