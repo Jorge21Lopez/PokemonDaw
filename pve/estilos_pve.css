@@ -1,0 +1,64 @@
+@font-face {
+    font-family: 'pokemon';
+    src: url('../imgs/pokemon_font.ttf') format('truetype');
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    background-image: url('../imgs/fondo_pve.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'pokemon', sans-serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+select {
+    margin: 5px 0;
+    padding: 8px;
+    width: 200px;
+    font-size: 16px;
+}
+
+label{
+    color: white;
+}
+
+input[type="submit"] {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+option{
+    font-family: 'pokemon', sans-serif;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}

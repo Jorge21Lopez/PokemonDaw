@@ -16,9 +16,9 @@ function equipo_random($pokedex)
     for ($i = 0; $i < 6; $i++) {
         $random = rand(0, $tamaño_pokedex);
         $repe = false;
-        $poke_random = $pokedex[$random];
+        $poke_random = $pokedex[$random]["name"];
         foreach ($equipo as $poke) {
-            if ($poke_random["name"] == $poke["name"]) {
+            if ($poke_random == $poke) {
                 $repe = true;
                 break;
             }
@@ -66,8 +66,8 @@ function select_pokemons($equipo, $pokedex)
 }
 
 include '../pokedex.php';
-$player1 = []; //jugaror 1
-$player2 = []; //jugador 2 o la IA
+$equipo1 = []; //jugador 1
+$equipo2 = []; //jugador 2 o la IA
 $longitud_pokedex = count($pokedex);
 
 ?>
@@ -78,6 +78,7 @@ $longitud_pokedex = count($pokedex);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos_pve.css">
     <title>PVE</title>
 </head>
 
@@ -150,9 +151,9 @@ $longitud_pokedex = count($pokedex);
 
     if (isset($_POST["equipo1"])) {
         for ($i = 1; $i <= 6; $i++) {
-            $player1[] = $_POST["eq1_" . $i];
+            $equipo1[] = $_POST["eq1_" . $i];
         }
-        if (no_repes($player1)) {
+        if (no_repes($equipo1)) {
             $equipo1_validado = true;
             echo "equipo valido mi rey";
         } else {
@@ -162,10 +163,9 @@ $longitud_pokedex = count($pokedex);
     }
 
     if ($equipo1_validado) {
-        $player1_valido = select_pokemons($player1,$pokedex);
-        $player2_valido = equipo_random($pokedex);
-        preaty_print($player1_valido);
-        preaty_print($player2_valido);
+        $equipo2 = equipo_random($pokedex);
+        preaty_print($equipo1);
+        preaty_print($equipo2);
     }
 
 

@@ -116,6 +116,15 @@ $electivire = [
                 "def"=>125,
                 "spe"=>95,
                 "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/electivire.gif' alt='Electivire'></a>",
+            ];
+
+$snorlax = [
+                "name"=>"snorlax",
+                "hp"=>160,
+                "ataque"=>110,
+                "def"=>65,
+                "spe"=>30,
+                "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/snorlax.gif' alt='Snorlax'></a>",
             ]; 
 
 

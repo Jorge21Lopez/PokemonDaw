@@ -66,8 +66,8 @@ function select_pokemons($equipo, $pokedex)
 }
 
 include '../pokedex.php';
-$player1 = []; //jugaror 1
-$player2 = []; //jugador 2 o la IA
+$equipo1 = []; //jugaror 1
+$equipo2 = []; //jugador 2 o la IA
 $longitud_pokedex = count($pokedex);
 
 ?>
@@ -227,17 +227,17 @@ $longitud_pokedex = count($pokedex);
 
     if (isset($_POST["equipos"])) {
         for ($i = 1; $i <= 6; $i++) {
-            $player1[] = $_POST["eq1_" . $i];
-            $player2[] = $_POST["eq2_" . $i];
+            $equipo1[] = $_POST["eq1_" . $i];
+            $equipo2[] = $_POST["eq2_" . $i];
         }
-        if (no_repes($player1)) {
+        if (no_repes($equipo1)) {
             $equipo1_validado = true;
             echo "<br>equipo 1 valido mi rey<br>";
         } else {
             $equipo1_validado = false;
             echo "<br>equipo1 no valido jefe <br>";
         }
-        if (no_repes($player2)) {
+        if (no_repes($equipo2)) {
             $equipo2_validado = true;
             echo "<br>equipo 2 valido mi rey<br>";
         } else {
@@ -248,10 +248,8 @@ $longitud_pokedex = count($pokedex);
 
 
     if ($equipo1_validado && $equipo2_validado) {
-        $player1_valido = select_pokemons($player1, $pokedex);
-        $player2_valido = select_pokemons($player2, $pokedex);
-        preaty_print($player1_valido);
-        preaty_print($player2_valido);
+        preaty_print($equipo1);
+        preaty_print($equipo2);
     }
 
     ?>
