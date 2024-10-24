@@ -55,9 +55,9 @@ function select_pokemons($equipo, $pokedex)
 
     for ($i = 0; $i < $longitud_equipo; $i++) {
         $poke = $equipo[$i];
-        for($x = 0 ; $x< $longitud_pokedex ; $x++){
-            if($poke===$pokedex[$x]["name"]){
-                $equipo_final[] = ['name' => $pokedex[$x]['name'],'img' => $pokedex[$x]['img']];
+        for ($x = 0; $x < $longitud_pokedex; $x++) {
+            if ($poke === $pokedex[$x]["name"]) {
+                $equipo_final[] = ['name' => $pokedex[$x]['name'], 'img' => $pokedex[$x]['img']];
                 break;
             }
         }
@@ -82,67 +82,6 @@ $longitud_pokedex = count($pokedex);
     <title>PVE</title>
 </head>
 
-<body>
-    <form action="pve.php" method="post">
-        <label for="equipo1" name="equipo1">Selecciona los 6 pokemons del equipo 1</label>
-        <select id="equipo1_poke1" name="eq1_1">
-            <?php
-            echo "<option value='default'></option>";
-            for ($i = 0; $i < $longitud_pokedex; $i++) {
-                $pokemon = $pokedex[$i];
-                echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
-            }
-            ?>
-        </select>
-        <select id="equipo1_poke2" name="eq1_2">
-            <?php
-            echo "<option value='default'></option>";
-            for ($i = 0; $i < $longitud_pokedex; $i++) {
-                $pokemon = $pokedex[$i];
-                echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
-            }
-            ?>
-        </select>
-        <select id="equipo1_poke3" name="eq1_3">
-            <?php
-            echo "<option value='default'></option>";
-            for ($i = 0; $i < $longitud_pokedex; $i++) {
-                $pokemon = $pokedex[$i];
-                echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
-            }
-            ?>
-        </select>
-        <select id="equipo1_poke4" name="eq1_4">
-            <?php
-            echo "<option value='default'></option>";
-            for ($i = 0; $i < $longitud_pokedex; $i++) {
-                $pokemon = $pokedex[$i];
-                echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
-            }
-            ?>
-        </select>
-        <select id="equipo1_poke5" name="eq1_5" default="elige un pokemon">
-            <?php
-            echo "<option value='default'></option>";
-            for ($i = 0; $i < $longitud_pokedex; $i++) {
-                $pokemon = $pokedex[$i];
-                echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
-            }
-            ?>
-        </select>
-        <select id="equipo1_poke6" name="eq1_6">
-            <?php
-            echo "<option value='default'></option>";
-            for ($i = 0; $i < $longitud_pokedex; $i++) {
-                $pokemon = $pokedex[$i];
-                echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
-            }
-            ?>
-        </select>
-
-        <input type="submit" value="Validar equipo" name="equipo1">
-    </form>
-
     <?php
 
 
@@ -155,22 +94,133 @@ $longitud_pokedex = count($pokedex);
         }
         if (no_repes($equipo1)) {
             $equipo1_validado = true;
-            echo "equipo valido mi rey";
+            echo "<script>alert('¡Equipo valido, presiona jugar para continuar!');</script>";
         } else {
             $equipo1_validado = false;
-            echo "equipo no valido jefe";
+            echo "<script>alert('¡Equipo no valido, rellenalo otra vez!');</script>";
         }
+    } else {
+    ?>
+        <form action="pve.php" method="post">
+            <label for="equipo1" name="equipo1">Selecciona los 6 pokemons del equipo 1</label>
+            <select id="equipo1_poke1" name="eq1_1">
+                <?php
+                echo "<option value='default'></option>";
+                for ($i = 0; $i < $longitud_pokedex; $i++) {
+                    $pokemon = $pokedex[$i];
+                    echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
+                }
+                ?>
+            </select>
+            <select id="equipo1_poke2" name="eq1_2">
+                <?php
+                echo "<option value='default'></option>";
+                for ($i = 0; $i < $longitud_pokedex; $i++) {
+                    $pokemon = $pokedex[$i];
+                    echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
+                }
+                ?>
+            </select>
+            <select id="equipo1_poke3" name="eq1_3">
+                <?php
+                echo "<option value='default'></option>";
+                for ($i = 0; $i < $longitud_pokedex; $i++) {
+                    $pokemon = $pokedex[$i];
+                    echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
+                }
+                ?>
+            </select>
+            <select id="equipo1_poke4" name="eq1_4">
+                <?php
+                echo "<option value='default'></option>";
+                for ($i = 0; $i < $longitud_pokedex; $i++) {
+                    $pokemon = $pokedex[$i];
+                    echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
+                }
+                ?>
+            </select>
+            <select id="equipo1_poke5" name="eq1_5" default="elige un pokemon">
+                <?php
+                echo "<option value='default'></option>";
+                for ($i = 0; $i < $longitud_pokedex; $i++) {
+                    $pokemon = $pokedex[$i];
+                    echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
+                }
+                ?>
+            </select>
+            <select id="equipo1_poke6" name="eq1_6">
+                <?php
+                echo "<option value='default'></option>";
+                for ($i = 0; $i < $longitud_pokedex; $i++) {
+                    $pokemon = $pokedex[$i];
+                    echo "<option value=" . $pokedex[$i]['name'] . ">" . $pokemon['name'] . "</option>";
+                }
+                ?>
+            </select>
+
+            <input type="submit" value="Validar equipo" name="equipo1">
+        </form>
+    <?php
+
+
     }
 
     if ($equipo1_validado) {
         $equipo2 = equipo_random($pokedex);
 
 
-        $pp_equipo1 = select_pokemons($equipo1,$pokedex);
-        $pp_equipo2 = select_pokemons($equipo2,$pokedex);
-        preaty_print($pp_equipo1);
-        echo "<br>-------------<br>";
-        preaty_print($pp_equipo2);
+        $pp_equipo1 = select_pokemons($equipo1, $pokedex);
+        $pp_equipo2 = select_pokemons($equipo2, $pokedex);
+        ?>
+        <div class="equipo-container">
+        <!-- Equipo 1 -->
+        <div class="equipo">
+            <h3>Equipo 1</h3>
+            <?php 
+                foreach ($pp_equipo1 as $poke){
+                    ?>
+                    <div class="contenedo-poke">
+                        <p><?=$poke['name']?></p>
+                        <?=$poke['img']?>
+                    </div>
+                    <?php
+                }
+            ?>
+        </div>
+
+        <!-- Equipo 2 -->
+        <div class="equipo">
+            <h3>Equipo 2</h3>
+            <?php 
+                foreach ($pp_equipo2 as $poke){
+                    ?>
+                    <div class="contenedo-poke">
+                        <p><?=$poke['name']?></p>
+                        <?=$poke['img']?>
+                    </div>
+                    <?php
+                }
+            ?>
+        </div>
+    </div>
+    <div class="action-button">
+    <form action="../combate/combate.php" method="post">
+        <?php
+        foreach($equipo1 as $key => $poke1){
+            echo '<input type="hidden" name="equipo1[]" value="' . $poke1 . '">';
+
+        }
+        foreach($equipo2 as $key => $poke2){
+            echo '<input type="hidden" name="equipo2[]" value="' . $poke2 . '">';
+
+        }
+
+        ?>
+        <input type="submit" value="Jugar" name="jugar">
+    </form>
+    </div>
+    
+    <?php
     }
 
 
