@@ -1,13 +1,16 @@
 <?php
 
-// Pokedex (misma definición que antes)
+include("tabla_tipos.php");
+
 $garchomp = [   
     "name"=>"garchomp",
     "hp"=>108,
     "ataque"=>130,
     "def"=>95,
     "spe"=>102,
-    "img"=>"<a href='https://pokemondb.net/pokedex/garchomp'><img src='https://img.pokemondb.net/sprites/black-white/normal/garchomp.png' alt='Garchomp'></a>",
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/garchomp.gif' alt='Garchomp'></a>",
+    "tipo1" => "dragón",
+    "tipo2" => "tierra"
 ];
 
 $charizard = [
@@ -16,7 +19,9 @@ $charizard = [
     "ataque"=>84,
     "def"=>78,
     "spe"=>100,
-    "img"=>"<a href='https://pokemondb.net/pokedex/charizard'><img src='https://img.pokemondb.net/sprites/black-white/normal/charizard.png' alt='Charizard'></a>",
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/charizard.gif' alt='Charizard'></a>",
+    "tipo1" => "fuego",
+    "tipo2" => "volador"
 ];
 
 $typhlosion = [
@@ -25,7 +30,9 @@ $typhlosion = [
     "ataque"=>84,
     "def"=>78,
     "spe"=>100,
-    "img"=>"<a href='https://pokemondb.net/pokedex/typhlosion'><img src='https://img.pokemondb.net/sprites/black-white/normal/typhlosion.png' alt='Typhlosion'></a>",
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/typhlosion.gif' alt='Typhlosion'></a>",
+    "tipo1" => "fuego",
+    "tipo2" => ""
 ];
 
 $umbreon = [
@@ -34,7 +41,9 @@ $umbreon = [
     "ataque"=>65,
     "def"=>110,
     "spe"=>65,
-    "img"=>"<a href='https://pokemondb.net/pokedex/umbreon'><img src='https://img.pokemondb.net/sprites/black-white/normal/umbreon.png' alt='Umbreon'></a>",
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/umbreon.gif' alt='Umbreon'></a>",
+    "tipo1" => "siniestro",
+    "tipo2" => ""
 ];
 
 $vaporeon = [
@@ -43,7 +52,9 @@ $vaporeon = [
     "ataque"=>65,
     "def"=>60,
     "spe"=>65,
-    "img"=>"<a href='https://pokemondb.net/pokedex/vaporeon'><img src='https://img.pokemondb.net/sprites/black-white/normal/vaporeon.png' alt='Vaporeon'></a>",
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/vaporeon.gif' alt='Vaporeon'></a>",
+    "tipo1" => "agua",
+    "tipo2" => ""
 ];
 
 $gengar = [
@@ -52,7 +63,9 @@ $gengar = [
     "ataque"=>130,
     "def"=>60,
     "spe"=>110,
-    "img"=>"<a href='https://pokemondb.net/pokedex/gengar'><img src='https://img.pokemondb.net/sprites/black-white/normal/gengar.png' alt='Gengar'></a>",
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/gengar.gif' alt='Gengar'></a>",
+    "tipo1" => "fantasma",
+    "tipo2" => "veneno"
 ];
 
 $hydreigon = [
@@ -61,7 +74,9 @@ $hydreigon = [
     "ataque"=>105,
     "def"=>90,
     "spe"=>98,
-    "img"=>"<a href='https://pokemondb.net/pokedex/hydreigon'><img src='https://img.pokemondb.net/sprites/black-white/anim/normal/hydreigon.gif' alt='Hydreigon'></a>",
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/hydreigon.gif' alt='Hydreigon'></a>",
+    "tipo1" => "dragón",
+    "tipo2" => "siniestro"
 ];
 
 $crobat = [
@@ -70,18 +85,80 @@ $crobat = [
     "ataque"=>90,
     "def"=>80,
     "spe"=>130,
-    "img"=>"<a href='https://pokemondb.net/pokedex/crobat'><img src='https://img.pokemondb.net/sprites/black-white/anim/normal/crobat.gif' alt='Crobat'></a>",
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/crobat.gif' alt='Crobat'></a>",
+    "tipo1" => "veneno",
+    "tipo2" => "volador"
 ];
 
-$pokedex = [$garchomp, $charizard, $typhlosion, $umbreon, $vaporeon, $gengar, $hydreigon, $crobat];
+$muk = [
+    "name"=>"muk",
+    "hp"=>105,
+    "ataque"=>105,
+    "def"=>75,
+    "spe"=>50,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/muk.gif' alt='Muk'></a>",
+    "tipo1" => "veneno",
+    "tipo2" => ""
+];
 
+$gliscor = [
+    "name"=>"gliscor",
+    "hp"=>75,
+    "ataque"=>95,
+    "def"=>125,
+    "spe"=>95,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/gliscor.gif' alt='Gliscor'></a>",
+    "tipo1" => "tierra",
+    "tipo2" => "volador"
+];
+
+$aggron = [
+    "name"=>"aggron",
+    "hp"=>70,
+    "ataque"=>110,
+    "def"=>180,
+    "spe"=>50,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/aggron.gif' alt='Agron'></a>",
+    "tipo1" => "acero",
+    "tipo2" => "roca"
+];
+
+$haxorus = [
+    "name"=>"haxorus",
+    "hp"=>76,
+    "ataque"=>147,
+    "def"=>90,
+    "spe"=>97,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/haxorus.gif' alt='haxorus'></a>",
+    "tipo1" => "dragón",
+    "tipo2" => ""
+];
+
+$electivire = [
+    "name"=>"electivire",
+    "hp"=>75,
+    "ataque"=>123,
+    "def"=>125,
+    "spe"=>95,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/electivire.gif' alt='Electivire'></a>",
+    "tipo1" => "eléctrico",
+    "tipo2" => ""
+]; 
+
+$pokedex = [$garchomp,$charizard,$typhlosion,$umbreon,$vaporeon,$gengar,$hydreigon,$crobat,$muk,$gliscor,$aggron,$haxorus,$electivire];
+
+/**
+ * Proporciona el array de datos de un pokemon según su nombre, con probabilidad de que sea variocolor
+ * @param mixed $nombrePk nombre del pokemon
+ * @return mixed retorna el array con la información o null si no lo encuentra
+ */
 function infoPokemon($nombrePk) {
     global $pokedex;
 
-    foreach ($pokedex as $pokemon) {
+    foreach ($pokedex as $pokemon) {    // recorre el archivo buscando el pokemon según el name
         if ($pokemon['name'] === strtolower($nombrePk)) {
             $pokemonCopia = $pokemon;
-            $esShiny = rand(0, 5) === 1;
+            $esShiny = rand(1, 100) <= 10; //calcula la probabilidad de shiny
             if ($esShiny) {
                 $pokemonCopia['img'] = cambiarEnlaceAShiny($pokemonCopia['img']);
             }
@@ -99,3 +176,25 @@ function cambiarEnlaceAShiny($url) {
         return $url;
     }
 }
+
+function ataqueTipos($pk1, $pk2) {
+    global $tabla_efectividad;
+
+    $tipoAtacante1 = ucfirst(strtolower($pk1['tipo1']));
+
+    $tipoDefensor1 = ucfirst(strtolower($pk2['tipo1']));
+    $tipoDefensor2 = ucfirst(strtolower($pk2['tipo2']));
+
+    $multiplicador = 1;
+
+    if (isset($tabla_efectividad[$tipoAtacante1][$tipoDefensor1])) {
+        $multiplicador *= $tabla_efectividad[$tipoAtacante1][$tipoDefensor1];
+    }
+
+    if (!empty($tipoDefensor2) && isset($tabla_efectividad[$tipoAtacante1][$tipoDefensor2])) {
+        $multiplicador *= $tabla_efectividad[$tipoAtacante1][$tipoDefensor2];
+    }
+
+    return $multiplicador;
+}
+

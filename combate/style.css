@@ -1,108 +1,136 @@
+@font-face {
+    font-family: 'pokemon';
+    src: url('../imgs/pokemon_font.ttf') format('truetype');
+}
+
 html, body {
-    height: 99%;
-    margin: 5px;
-    margin-bottom: 5px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url(https://wallpapers.com/images/hd/pokemon-battle-background-ohy9zidoqjpydd4a.jpg);
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+}
+
+h1, h3 {
+    font-family: 'pokemon', sans-serif;
 }
 
 body {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
 
 .container {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 70%;
+    margin: 20px auto;
 }
 
 .player1, .player2 {
-    width: 52%;
+    width: 30%;
     text-align: center;
-    background-color: rgb(0, 153, 255);
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    height: 95%;
+    margin: 0 20px;
 }
 
-.player2 {
-    background-color: rgb(234, 21, 21);
+.player1 h3, .player2 h3 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #ffcb05;
 }
 
 .pokemon-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Centra los Pokémon horizontalmente */
-    margin: 10px 0; /* Espaciado entre el título y los Pokémon */
+    justify-content: center;
+    gap: 10px;
 }
 
 .pokemon-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 5px; /* Espaciado entre las tarjetas de Pokémon */
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con un poco de transparencia */
-    border-radius: 10px; /* Bordes redondeados */
-    padding: 5px; /* Espacio interno */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-    width: 130px; /* Ancho fijo para las cartas de Pokémon */
-    height: 150px;
-    border: 2px solid black; /* Borde por defecto */
-    color: black; /* Texto por defecto */
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    width: 120px;
+    height: 180px;
+    border: 2px solid black;
+    color: black;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+.pokemon-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 .pokemon-card.derrotado {
-    border-color: red; /* Borde rojo si está derrotado */
-    color: red; /* Texto rojo si está derrotado */
-    background-color: rgba(255, 0, 0, 0.1); /* Fondo ligeramente rojizo para indicar derrota */
+    border-color: red;
+    color: #900;
+    opacity: 0.5;
+    background-color: rgba(255, 0, 0, 0.2);
 }
-
 
 .pokemon-image img {
-    width: 70px; /* Ancho de la imagen del Pokémon */
-    height: auto; /* Mantener la proporción de la imagen */
-}
-
-#pkCombat {
-    width: 50%;
-    height: 70%;
+    width: 60px;
+    height: auto;
+    margin-bottom: 10px;
 }
 
 aside {
-    width: 25%;
+    width: 30%;
     padding: 20px;
     text-align: center;
-    border: 1px solid black;
-    height: 94%;
-    margin-left: 1px;
-    overflow-y: scroll;
-    background-color: #f4f4f4; /* Fondo claro para mayor contraste */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar el registro */
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 80vh;
 }
 
 aside > h1 {
-    text-decoration: underline;
-    font-size: 1.5em;
+    font-size: 1.8em;
+    color: #ffcb05;
     margin-bottom: 10px;
+    text-decoration: underline;
 }
 
 .log {
     margin-top: 10px;
     padding: 10px;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #ccc;
 }
 
-/* Estilo de cada entrada de log */
 .log p {
-    background-color: #fff; /* Fondo blanco para mayor contraste */
-    color: #333; /* Texto oscuro */
-    border: 1px solid #ccc;
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 8px; /* Espacio interno */
-    margin-bottom: 8px; /* Espacio entre párrafos */
-    font-family: Arial, sans-serif; /* Fuente más legible */
-    font-size: 14px; /* Tamaño de fuente ajustado */
-    line-height: 1.4; /* Espaciado entre líneas */
-    text-align: left; /* Alinear el texto a la izquierda */
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
 }
 
-/* Scrollbar customizado para el aside */
 aside::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 
 aside::-webkit-scrollbar-thumb {
@@ -112,4 +140,28 @@ aside::-webkit-scrollbar-thumb {
 
 aside::-webkit-scrollbar-thumb:hover {
     background-color: #555;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 20px;
+    border-radius: 10px;
+}
+
+footer a {
+    color: #ffcb05;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: #fff;
+    text-decoration: underline;
 }

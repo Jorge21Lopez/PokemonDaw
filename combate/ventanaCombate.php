@@ -1,151 +1,172 @@
 <?php
-include "../pokedex.php";
-session_save_path("E:/JORGEE/2ºA DAW/Desarrollo Servidor/Practicas/sesiones");
-session_start();
+// Incluir el archivo de la pokédex
+include '../pokedex.php';
 
-if (isset($_POST['cerrar_sesion'])) {
-    session_destroy();
-    header("Location: ../inicio/inicio.php");
-    exit();
-}
+// Obtener el equipo 1 y el equipo 2 desde la URL
+$equipo1 = isset($_GET['equipo1']) ? explode(',', urldecode($_GET['equipo1'])) : [];
+$equipo2 = isset($_GET['equipo2']) ? explode(',', urldecode($_GET['equipo2'])) : [];
 
-if (!isset($_SESSION['equipo1'])) {
-    $_SESSION['equipo1'] = [];
-}
-if (!isset($_SESSION['equipo2'])) {
-    $_SESSION['equipo2'] = [];
-}
-if (!isset($_SESSION['log'])) {
-    $_SESSION['log'] = [];
-}
-
-function obtenerVidaTotal($nombrePk) {
-    $infoPk = infoPokemon($nombrePk);
-    return $infoPk ? $infoPk['hp'] : 0;
+/**
+ * Encuentra un Pokémon en la pokédex por su nombre.
+ *
+ * @param string $nombre El nombre del Pokémon a buscar.
+ * @param array $pokedex La pokédex donde se buscará el Pokémon.
+ * @return array|null El Pokémon encontrado, o null si no se encuentra.
+ */
+function obtenerPokemon($nombre, $pokedex) {
+    foreach ($pokedex as $pokemon) {
+        if ($pokemon['name'] === $nombre) {
+            return $pokemon; // Retorna el Pokémon encontrado
+        }
+    }
+    return null; // Retorna null si no se encuentra
 }
 
-if (isset($_GET['namePk'])) {
-    foreach ($_GET['namePk'] as $nombrePk1) {
-        $vidaTotalPk1 = obtenerVidaTotal($nombrePk1);
-        if ($vidaTotalPk1) {
-            if (!in_array($nombrePk1, array_column($_SESSION['equipo1'], 'nombre'))) {
-                $_SESSION['equipo1'][] = [
-                    'nombre' => $nombrePk1,
-                    'vida_total' => $vidaTotalPk1,
-                    'vida_actual' => $vidaTotalPk1,
-                    'img' => infoPokemon($nombrePk1)['img']
-                ];
+/**
+ * Calculo de daño, teniendo en cuenta tipos y posibilidad de crítico.
+ *
+ * @param mixed $pokeAt Pokémon atacante.
+ * @param mixed $pokeDef Pokémon defensor.
+ * @param mixed $log Array que guarda todo el log del combate.
+ * @return float|int Daño final que, en caso de ser 0 o menos, retorna 1.
+ */
+function daño($pokeAt, $pokeDef, &$log) {
+    $ataque_tipo = $pokeAt["ataque"] * ataqueTipos($pokeAt, $pokeDef);
+    $daño = $ataque_tipo - $pokeDef["def"] + 2;
+    $random = rand(1, 100); // Rand para calcular el índice de golpe crítico del 5%
+    $critico = false;
+
+    if ($random <= 5) {
+        $daño *= 1.5; // Aumentar el daño en caso de golpe crítico
+        $critico = true; // Marcar como golpe crítico
+    }
+    
+    if ($daño <= 0) {
+        $daño = 1; // Asegurar que el daño sea al menos 1
+    }
+
+    // Registrar el daño infligido
+    if ($critico) {
+        $log[] = "<span style='color:yellow;'>{$pokeAt['name']} inflige un golpe crítico de {$daño} puntos de daño a {$pokeDef['name']} (HP: {$pokeDef['hp']})</span>";
+    } else {
+        $log[] = "{$pokeAt['name']} inflige {$daño} puntos de daño a {$pokeDef['name']} (HP: {$pokeDef['hp']})";
+    }
+
+    return $daño; // Retornar el daño calculado
+}
+
+/**
+ * Realiza un ataque de un Pokémon a otro, para bajarle la vida usando la funcion de daño
+ *
+ * @param array &$atacante Pokémon atacante.
+ * @param array &$defensor Pokémon defensor.
+ * @param array &$log Registro de combate donde se almacenan los eventos.
+ * @return bool True si el Pokémon defensor se ha debilitado, false en caso contrario.
+ */
+function realizarAtaque(&$atacante, &$defensor, &$log) {
+    $danio = daño($atacante, $defensor, $log); // Calcular el daño infligido
+    $defensor['hp'] -= $danio; // Reducir la salud del defensor
+
+    // Verificar si el defensor se ha debilitado
+    if ($defensor['hp'] <= 0) {
+        $log[] = "{$defensor['name']} se ha debilitado."; // Registrar debilitamiento
+        return true; // Pokémon debilitado
+    }
+    return false; // Continúa la batalla
+}
+
+// Obtener los Pokémon del equipo 1
+$team1 = [];
+foreach ($equipo1 as $nombre) {
+    $pokemon = obtenerPokemon($nombre, $pokedex);
+    if ($pokemon) {
+        $team1[] = $pokemon; // Agregar Pokémon al equipo 1
+    }
+}
+
+// Obtener los Pokémon del equipo 2
+$team2 = [];
+foreach ($equipo2 as $nombre) {
+    $pokemon = obtenerPokemon($nombre, $pokedex);
+    if ($pokemon) {
+        $team2[] = $pokemon; // Agregar Pokémon al equipo 2
+    }
+}
+
+// Inicializar los índices de los Pokémon activos
+$indice1 = 0; // Índice del Pokémon actual del equipo 1
+$indice2 = 0; // Índice del Pokémon actual del equipo 2
+
+// Almacenar el registro de combate
+$log = [];
+
+/**
+ * Simula el combate entre dos equipos de Pokémon.
+ *
+ * @param array $equipo1 El primer equipo de Pokémon.
+ * @param array $equipo2 El segundo equipo de Pokémon.
+ * @return void
+ */
+function combate($equipo1, $equipo2) {
+    global $indice1, $indice2, $log; // Acceder a variables globales
+
+    while ($indice1 < count($equipo1) && $indice2 < count($equipo2)) {
+        $pokemon1 = &$equipo1[$indice1];
+        $pokemon2 = &$equipo2[$indice2];
+
+        $log[] = "<h3>Combate: {$pokemon1['name']} vs {$pokemon2['name']}</h3>";
+
+        $spe1 = $pokemon1['spe'];
+        $spe2 = $pokemon2['spe'];
+
+        // Turnos alternos de ataque
+        while ($pokemon1['hp'] > 0 && $pokemon2['hp'] > 0) {
+            $speed_tie = mt_rand(1, 2); // Determinar quién ataca primero en caso de empate de velocidad
+            if ($spe1 > $spe2 || ($spe1 == $spe2 && $speed_tie == 1)) {
+                // Pokémon del equipo 1 ataca primero
+                if (realizarAtaque($pokemon1, $pokemon2, $log)) {
+                    break; // Si el Pokémon 2 se debilita, salir del bucle
+                }
+        
+                // Pokémon del equipo 2 ataca
+                if (realizarAtaque($pokemon2, $pokemon1, $log)) {
+                    break; // Si el Pokémon 1 se debilita, salir del bucle
+                }
             } else {
-                logCombate("Pokémon '{$nombrePk1}' ya está en el equipo 1.");
-            }
-        } else {
-            logCombate("Pokémon '{$nombrePk1}' no encontrado.");
-        }
-    }
-}
-
-if (isset($_GET['namePk2'])) {
-    foreach ($_GET['namePk2'] as $nombrePk2) {
-        $vidaTotalPk2 = obtenerVidaTotal($nombrePk2);
-        if ($vidaTotalPk2) {
-            if (!in_array($nombrePk2, array_column($_SESSION['equipo2'], 'nombre'))) {
-                $_SESSION['equipo2'][] = [
-                    'nombre' => $nombrePk2,
-                    'vida_total' => $vidaTotalPk2,
-                    'vida_actual' => $vidaTotalPk2,
-                    'img' => infoPokemon($nombrePk2)['img']
-                ];
-            } else {
-                logCombate("Pokémon '{$nombrePk2}' ya está en el equipo 2.");
-            }
-        } else {
-            logCombate("Pokémon '{$nombrePk2}' no encontrado.");
-        }
-    }
-}
-
-$equipo1 = $_SESSION['equipo1'];
-$equipo2 = $_SESSION['equipo2'];
-$log = &$_SESSION['log'];
-
-function logCombate($message){
-    global $log;
-    $log[] = $message;
-}
-
-// Función para obtener el Pokémon activo (el primero con vida) de un equipo
-function obtenerPokemonActivo($equipo) {
-    foreach ($equipo as $pokemon) {
-        if ($pokemon['vida_actual'] > 0) {
-            return $pokemon;
-        }
-    }
-    return null; // Si no hay Pokémon vivos
-}
-
-function realizarCombate() {
-    global $equipo1, $equipo2, $log;
-
-    if (empty($equipo1) || empty($equipo2)) {
-        return true;
-    }
-
-    $pk1 = obtenerPokemonActivo($equipo1);
-    if (!$pk1) {
-        logCombate("¡El equipo 2 ha ganado el combate!");
-        return true;
-    }
-
-    $pk2 = obtenerPokemonActivo($equipo2);
-    if (!$pk2) {
-        logCombate("¡El equipo 1 ha ganado el combate!");
-        return true;
-    }
-
-    $damage1 = rand(10, 20);
-    $pk2['vida_actual'] -= $damage1;
-    logCombate("El Pokémon {$pk1['nombre']} ataca a {$pk2['nombre']} infligiendo $damage1 puntos de daño.");
-
-    if ($pk2['vida_actual'] <= 0) {
-        $pk2['vida_actual'] = 0;
-        logCombate("¡{$pk2['nombre']} ha sido derrotado!");
-    }
-
-    // Actualizar en sesión
-    foreach ($equipo2 as &$poke) {
-        if ($poke['nombre'] == $pk2['nombre']) {
-            $poke['vida_actual'] = $pk2['vida_actual'];
-        }
-    }
-
-    if ($pk2['vida_actual'] > 0) {
-        $damage2 = rand(10, 20);
-        $pk1['vida_actual'] -= $damage2;
-        logCombate("El Pokémon {$pk2['nombre']} ataca a {$pk1['nombre']} infligiendo $damage2 puntos de daño.");
-
-        if ($pk1['vida_actual'] <= 0) {
-            $pk1['vida_actual'] = 0;
-            logCombate("¡{$pk1['nombre']} ha sido derrotado!");
-        }
-
-        // Actualizar en sesión
-        foreach ($equipo1 as &$poke) {
-            if ($poke['nombre'] == $pk1['nombre']) {
-                $poke['vida_actual'] = $pk1['vida_actual'];
+                // Pokémon del equipo 2 ataca primero
+                if (realizarAtaque($pokemon2, $pokemon1, $log)) {
+                    break; // Si el Pokémon 1 se debilita, salir del bucle
+                }
+        
+                // Pokémon del equipo 1 ataca
+                if (realizarAtaque($pokemon1, $pokemon2, $log)) {
+                    break; // Si el Pokémon 2 se debilita, salir del bucle
+                }
             }
         }
+
+        // Cambiar de Pokémon si uno se debilita
+        if ($pokemon1['hp'] <= 0) {
+            $indice1++; // Cambiar al siguiente Pokémon del equipo 1
+        }
+        if ($pokemon2['hp'] <= 0) {
+            $indice2++; // Cambiar al siguiente Pokémon del equipo 2
+        }
     }
 
-    $_SESSION['equipo1'] = $equipo1;
-    $_SESSION['equipo2'] = $equipo2;
-
-    return false;
+    // Verificar quién es el ganador
+    if ($indice1 < count($equipo1)) {
+        $log[] = "<strong>¡El Equipo 1 ha ganado el combate!</strong>";
+    } else {
+        $log[] = "<strong>¡El Equipo 2 ha ganado el combate!</strong>";
+    }
 }
 
-$combateTerminado = false;
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['cerrar_sesion'])) {
-    $combateTerminado = realizarCombate();
-}
+// Ejecutar la función de combate
+combate($team1, $team2);
+
+// Enlace para volver al inicio
+$volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
 ?>
 
 <!DOCTYPE html>
@@ -162,77 +183,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['cerrar_sesion'])) {
         <div class="player1">
             <h3>Equipo 1</h3>
             <div class="pokemon-container">
-                <?php foreach ($equipo1 as $pk): ?>
-                    <div class="pokemon-card <?php echo $pk['vida_actual'] <= 0 ? 'derrotado' : ''; ?>">
-                        <p><?php echo htmlspecialchars(ucfirst($pk['nombre'])); ?> <br> <?php echo htmlspecialchars($pk['vida_total']); ?> / <?php echo htmlspecialchars($pk['vida_actual']); ?> hp</p>
+                <?php foreach ($team1 as $pk): ?>
+                    <div class="pokemon-card <?php echo $pk['hp'] <= 0 ? 'derrotado' : ''; ?>">
+                        <p><?php echo htmlspecialchars(ucfirst($pk['name'])); ?> <br> <?php echo htmlspecialchars($pk['hp']); ?> hp</p>
                         <div class="pokemon-image">
-                            <?php echo ($pk['img']); ?>
+                            <?php echo $pk['img']; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
-            
-            <?php 
-            // Obtener el Pokémon activo para el equipo 1
-            $pkActivo1 = obtenerPokemonActivo($equipo1);
-            if ($pkActivo1): ?>
-                <div class="pkAct1">
-                    <h4>Pokémon Activo: <?php echo htmlspecialchars(ucfirst($pkActivo1['nombre'])); ?></h4>
-                    <p>HP: <?php echo htmlspecialchars($pkActivo1['vida_total']); ?> / <?php echo htmlspecialchars($pkActivo1['vida_actual']); ?> hp</p>
-                    <?php echo ($pkActivo1['img']); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if (!$combateTerminado): ?>
-                <!-- Botón para continuar el combate -->
-                <form method="post">
-                    <button type="submit">Atacar</button>
-                </form>
-            <?php else: ?>
-                <h2>El combate ha terminado.</h2>
-            <?php endif; ?>
-                    
-            <!-- Botón para volver -->
-            <form method="post">
-                <button type="submit" name="cerrar_sesion">Salir del Combate</button>
-            </form>
         </div>
+
+        <!-- Registro de combate -->
+        <aside>
+            <h1>Registro del Combate</h1>
+            <div class="log">
+                <?php foreach ($log as $entry): ?>
+                    <p><?php echo $entry; ?></p>
+                <?php endforeach; ?>
+            </div>
+        </aside>
 
         <!-- Jugador 2 -->
         <div class="player2">
             <h3>Equipo 2</h3>
             <div class="pokemon-container">
-                <?php foreach ($equipo2 as $pk): ?>
-                    <div class="pokemon-card <?php echo $pk['vida_actual'] <= 0 ? 'derrotado' : ''; ?>">
-                        <p><?php echo htmlspecialchars(ucfirst($pk['nombre'])); ?> <br> <?php echo htmlspecialchars($pk['vida_total']); ?> / <?php echo htmlspecialchars($pk['vida_actual']); ?> hp</p>
+                <?php foreach ($team2 as $pk): ?>
+                    <div class="pokemon-card <?php echo $pk['hp'] <= 0 ? 'derrotado' : ''; ?>">
+                        <p><?php echo htmlspecialchars(ucfirst($pk['name'])); ?> <br> <?php echo htmlspecialchars($pk['hp']); ?> hp</p>
                         <div class="pokemon-image">
-                            <?php echo ($pk['img']); ?>
+                            <?php echo $pk['img']; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
-
-            <?php 
-            // Obtener el Pokémon activo para el equipo 2
-            $pkActivo2 = obtenerPokemonActivo($equipo2);
-            if ($pkActivo2): ?>
-                <div class="pkAct2">
-                    <h4>Pokémon Activo: <?php echo htmlspecialchars(ucfirst($pkActivo2['nombre'])); ?></h4>
-                    <p>HP: <?php echo htmlspecialchars($pkActivo2['vida_total']); ?> / <?php echo htmlspecialchars($pkActivo2['vida_actual']); ?> hp</p>
-                    <?php echo ($pkActivo2['img']); ?>
-                </div>
-            <?php endif; ?>
         </div>
     </div>
 
-    <!-- Registro de combate -->
-    <aside>
-        <h1>Registro del Combate</h1>
-        <div class="log">
-            <?php foreach ($log as $entry): ?>
-                <p><?php echo $entry; ?></p>
-            <?php endforeach; ?>
-        </div>
-    </aside>
+    <!-- Enlace para volver al inicio -->
+    <footer>
+        <?php echo $volverInicio; ?>
+    </footer>
 </body>
 </html>
