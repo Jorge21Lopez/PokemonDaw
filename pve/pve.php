@@ -203,6 +203,8 @@ $longitud_pokedex = count($pokedex);
             ?>
         </div>
     </div>
+
+    <!-- enviar a combate -->
     <div class="action-button">
     <form action="../combate/combate.php" method="post">
         <?php
