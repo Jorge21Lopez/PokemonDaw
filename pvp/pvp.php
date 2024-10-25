@@ -284,7 +284,7 @@ $longitud_pokedex = count($pokedex);
                     </div>
                     <!--Boton para enviar los pokes-->
                     <div class="formulario_enviar">
-                        <form action="../combate/combate.php" method="post">
+                        <form action="../combate/ventanaCombate.php" method="post">
                             <?php
                             foreach ($equipo1 as $key => $poke1) {
                                 echo '<input type="hidden" name="equipo1[]" value="' . $poke1 . '">';
@@ -293,7 +293,7 @@ $longitud_pokedex = count($pokedex);
                                 echo '<input type="hidden" name="equipo2[]" value="' . $poke2 . '">';
                             }
 
-                            ?>
+                            ?> 
                             <input class="botones" type="submit" value="Jugar" name="jugar">
                             <input class="botones" type="submit" value="Volver" name="volver-pvp">
                         </form>
@@ -319,7 +319,9 @@ $longitud_pokedex = count($pokedex);
                         ?>
                     </div>
                 </div>
+
             <?php
+            print_r($equipo1);
         }
 
             ?>

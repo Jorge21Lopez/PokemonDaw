@@ -2,9 +2,14 @@
 // Incluir el archivo de la pokédex
 include '../pokedex.php';
 
-// Obtener el equipo 1 y el equipo 2 desde la URL
-$equipo1 = isset($_GET['equipo1']) ? explode(',', urldecode($_GET['equipo1'])) : [];
-$equipo2 = isset($_GET['equipo2']) ? explode(',', urldecode($_GET['equipo2'])) : [];
+// Obtener el equipo 1 y el equipo 2
+if((isset($_POST['equipo1'])&&(isset($_POST['equipo2'])))){
+    $equipo1 = $_POST['equipo1']; 
+    $equipo2 = $_POST['equipo2'];
+}else{
+    header("Location: ../inicio/inicio.php");
+}
+
 
 /**
  * Encuentra un Pokémon en la pokédex por su nombre.

@@ -199,7 +199,7 @@ $longitud_pokedex = count($pokedex);
             </div>
             <!--Boton para enviar los pokes-->
             <div class="formulario_enviar">
-                <form action="../combate/combate.php" method="post">
+                <form action="../combate/ventanaCombate.php" method="post">
                     <?php
                     foreach ($equipo1 as $key => $poke1) {
                         echo '<input type="hidden" name="equipo1[]" value="' . $poke1 . '">';
