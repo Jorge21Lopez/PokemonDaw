@@ -11,14 +11,13 @@
 }
 
 body {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
     flex-direction: column;
-    background-image: url('../imgs/fondo_pve.gif');
+    background-image: url('../imgs/fondo_pvp.gif');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -27,10 +26,6 @@ body {
     color: white;
 }
 
-#titulo_form{
-    margin-bottom: 30px;
-    font-size: large;
-}
 
 form{
     font-family: 'pokemon', sans-serif;
@@ -50,14 +45,10 @@ option{
     font-family: 'pokemon', sans-serif;
 }
 
-.formulario_seleccion{
-    padding: 50px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-}
+
 
 .botones{
-    background-color: #3285d3;
+    background-color: #5b1fca;
     color: white;
     padding: 10px 20px;
     margin: 10px;
@@ -73,6 +64,20 @@ form input[type="submit"]:hover {
     background-color: black;
 }
 
+button:hover{
+    background-color: black;
+}
+
+.botones_estilos{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    
+}
+    
 
 /*---Estilos para la revision de equipos---*/
 
@@ -115,8 +120,3 @@ img{
     margin-left: 100px;
 
 }
-
-
-
-
-
