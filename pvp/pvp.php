@@ -242,12 +242,14 @@ $longitud_pokedex = count($pokedex);
                 <input class="botones" type="submit" value="Validar equipo" name="equipos">
 
             </form>
-            <div class="formulario_seleccion">
+            <div>
 
                 <div class="botones_estilos">
                     <button id="btn_ocultar_jugador1" class="botones" onclick="ocultarJugador1()">Ocultar datos player1</button>
                     <button id="btn_ocultar_jugador2" class="botones" onclick="ocultarJugador2()">Ocultar datos player2</button>
                 </div>
+
+
             <?php
         }
 

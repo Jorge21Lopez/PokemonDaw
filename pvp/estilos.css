@@ -10,6 +10,7 @@
     z-index: 10; 
 }
 
+
 body {
     display: flex;
     justify-content: center;
@@ -68,6 +69,8 @@ button:hover{
     background-color: black;
 }
 
+
+
 .botones_estilos{
     margin-top: 50px;
     display: flex;
@@ -77,7 +80,13 @@ button:hover{
     gap: 10px;
     
 }
-    
+
+.formulario_seleccion{
+    padding: 50px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
 
 /*---Estilos para la revision de equipos---*/
 
