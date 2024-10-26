@@ -8,6 +8,8 @@ html, body {
     margin: 0;
     padding: 0;
     background-image: url(https://wallpapers.com/images/hd/pokemon-battle-background-ohy9zidoqjpydd4a.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
     background-size: cover;
     background-position: center;
     font-family: Arial, sans-serif;
