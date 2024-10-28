@@ -185,6 +185,7 @@ function combate($equipo1, $equipo2)
     }
 }
 
+ob_start();
 ob_implicit_flush(true);
 ob_end_flush();
 
