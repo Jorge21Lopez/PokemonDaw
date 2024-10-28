@@ -9,13 +9,12 @@
     <link rel="icon" href="../imgs/pokeball.ico" type="image/x-icon">
     <link rel="icon" href="../imgs/pokeball.png" sizes="32x32" type="image/png">
 
-
-
 </head>
 
 <body>
 
     <img id="logo" src="../imgs/logo_v1.png">
+    <!--Formulario para seleccionar el modo-->
     <form action="inicio.php" method="post">
         <p>Elige el modo</p>
         <input type="submit" name="pve" value="PVE">
@@ -24,7 +23,6 @@
 
     <?php
 
-
     if (isset($_POST["pve"])) {
         header("Location: ../pve/pve.php");
         exit;
@@ -32,12 +30,6 @@
         header("Location: ../pvp/pvp.php");
         exit;
     }
-
-
-
-
-
-
 
     ?>
     <footer>

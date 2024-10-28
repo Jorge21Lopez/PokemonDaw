@@ -2,6 +2,12 @@
 // Incluir el archivo de la pokédex
 include '../pokedex.php';
 
+//volver al inicio
+if(isset($_POST["volver-pve"])){
+    header("Location: ../pve/pve.php");
+}elseif(isset($_POST["volver-pvp"])){
+    header("Location: ../pvp/pvp.php");
+}
 // Obtener el equipo 1 y el equipo 2
 if ((isset($_POST['equipo1']) && (isset($_POST['equipo2'])))) {
     $equipo1 = $_POST['equipo1'];

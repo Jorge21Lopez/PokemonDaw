@@ -92,15 +92,19 @@ $longitud_pokedex = count($pokedex);
 </head>
 
 <body>
-
+    <!--Icono que te manda directamente al inicio-->
     <a href="../inicio/inicio.php"><img class="esquina" src="../imgs/pokeball.png" alt="logo pokeball azul"></a>
     
     <?php
 
-
     $equipo1_validado = false;
 
-
+    /**
+     * Primero comprobamos si el jugador ha posteado el equipo, despues, comprobamos
+     * si el equipo cumple los requisitos si los cumple desaparecera el formulario
+     * para crearlo y aparecera una lista con los pokes que ha seleccionado y los
+     * que se han generado automaticamente.
+     */
     if (isset($_POST["equipo1"])) {
         for ($i = 1; $i <= 6; $i++) {
             $equipo1[] = $_POST["eq1_" . $i];
@@ -117,6 +121,11 @@ $longitud_pokedex = count($pokedex);
     } else {
     ?>
         <div class="formulario_seleccion">
+            <!--
+            Formulario con 6 selects uno por cada pokemon del 
+            equipo, cada select se genera de forma automatica con 
+            todos los pokemons de la pokedex
+            -->
             <form action="pve.php" method="post">
                 <label id="titulo_form" for="equipo1" name="equipo1">Selecciona los 6 pokemons del equipo 1</label>
                 <select id="equipo1_poke1" name="eq1_1">
@@ -191,7 +200,6 @@ $longitud_pokedex = count($pokedex);
     ?>
         <div class="equipos">
             <!-- Equipo 1 -->
-
             <div class="equipo">
 
                 <div class="contenedor_pokemon"></div>

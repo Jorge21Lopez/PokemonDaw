@@ -101,7 +101,10 @@ $longitud_pokedex = count($pokedex);
     $equipo1_validado = false;
     $equipo2_validado = false;
 
-
+    /**
+     * Compruebo que equipos este en $_POST , si existe valida los equipos,
+     * sino enseña el formulario de creación de equipos
+     * */
     if (isset($_POST["equipos"])) {
         for ($i = 1; $i <= 6; $i++) {
             $equipo1[] = $_POST["eq1_" . $i];
@@ -133,6 +136,11 @@ $longitud_pokedex = count($pokedex);
     } else {
     ?>
         <div class="formulario_seleccion">
+            <!--
+            Formulario con 12 selects, estan divididos en 2 grupos de 6,
+            cada select se genera de forma automatica con todos los
+            pokemons de la pokedex.
+            -->
             <form action="pvp.php" method="post" class="formulario_pokes">
                 <div id="jugador1" class="jugador1">
                     <label class="titulo_form" for="equipo1" name="equipo1">Selecciona los 6 pokemons del equipo 1</label>
@@ -257,7 +265,7 @@ $longitud_pokedex = count($pokedex);
 
             </form>
             <div>
-
+                <!--Estos 2 botones esconden los equipos (usando JS) para que cada jugador escoja sin ver los pokemons de su rival-->
                 <div class="botones_estilos">
                     <button id="btn_ocultar_jugador1" class="botones" onclick="ocultarJugador1()">Ocultar datos player1</button>
                     <button id="btn_ocultar_jugador2" class="botones" onclick="ocultarJugador2()">Ocultar datos player2</button>
@@ -267,7 +275,11 @@ $longitud_pokedex = count($pokedex);
             <?php
         }
 
-        //equipos validados parte 2 de la ejecución
+        /**
+         * Si los dos equipos son validos pasamos los equipos por el metodo
+         * select pokemons para obtener 2 arrays con las fotos de los pokemons
+         * una vez obtenidos los datos, los mostramos.
+         */
 
         if ($equipo1_validado && $equipo2_validado) {
             $pp_equipo1 = select_pokemons($equipo1, $pokedex);
@@ -276,7 +288,6 @@ $longitud_pokedex = count($pokedex);
             ?>
                 <div class="equipos">
                     <!-- Equipo 1 -->
-
                     <div class="equipo">
 
                         <div class="contenedor_pokemon"></div>
@@ -296,7 +307,11 @@ $longitud_pokedex = count($pokedex);
                         }
                         ?>
                     </div>
-                    <!--Boton para enviar los pokes-->
+                    <!--
+                    Con este formulario paso los dos arrays de nombres de pokemons a la pagina de combate
+                    alli mas adelante se extraen todos los datos para el calculo de los daños.
+                    tambien hay un boton para volver a la pagina de inicio
+                    -->
                     <div class="formulario_enviar">
                         <form action="../combate/ventanaCombate.php" method="post">
                             <?php
@@ -313,7 +328,6 @@ $longitud_pokedex = count($pokedex);
                         </form>
 
                     </div>
-
                     <!-- Equipo 2 -->
                     <div class="equipo">
                         <div class="contenedor_pokemon"></div>
