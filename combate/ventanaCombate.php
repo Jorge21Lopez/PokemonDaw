@@ -3,10 +3,10 @@
 include '../pokedex.php';
 
 // Obtener el equipo 1 y el equipo 2
-if((isset($_POST['equipo1'])&&(isset($_POST['equipo2'])))){
-    $equipo1 = $_POST['equipo1']; 
+if ((isset($_POST['equipo1']) && (isset($_POST['equipo2'])))) {
+    $equipo1 = $_POST['equipo1'];
     $equipo2 = $_POST['equipo2'];
-}else{
+} else {
     header("Location: ../inicio/inicio.php");
 }
 
@@ -17,7 +17,8 @@ if((isset($_POST['equipo1'])&&(isset($_POST['equipo2'])))){
  * @param array $pokedex La pokédex donde se buscará el Pokémon.
  * @return array|null El Pokémon encontrado, o null si no se encuentra.
  */
-function obtenerPokemon($nombre, $pokedex) {
+function obtenerPokemon($nombre, $pokedex)
+{
     foreach ($pokedex as $pokemon) {
         if ($pokemon['name'] === $nombre) {
             return $pokemon; // Retorna el Pokémon encontrado
@@ -34,7 +35,8 @@ function obtenerPokemon($nombre, $pokedex) {
  * @param mixed $log Array que guarda todo el log del combate.
  * @return float|int Daño final que, en caso de ser 0 o menos, retorna 1.
  */
-function daño($pokeAt, $pokeDef, &$log) {
+function daño($pokeAt, $pokeDef, &$log)
+{
     $ataque_tipo = $pokeAt["ataque"] * ataqueTipos($pokeAt, $pokeDef);
     $daño = $ataque_tipo - $pokeDef["def"] + 2;
     $random = rand(1, 100); // Rand para calcular el índice de golpe crítico del 5%
@@ -44,7 +46,7 @@ function daño($pokeAt, $pokeDef, &$log) {
         $daño *= 1.5; // Aumentar el daño en caso de golpe crítico
         $critico = true; // Marcar como golpe crítico
     }
-    
+
     if ($daño <= 0) {
         $daño = 1; // Asegurar que el daño sea al menos 1
     }
@@ -67,7 +69,8 @@ function daño($pokeAt, $pokeDef, &$log) {
  * @param array &$log Registro de combate donde se almacenan los eventos.
  * @return bool True si el Pokémon defensor se ha debilitado, false en caso contrario.
  */
-function realizarAtaque(&$atacante, &$defensor, &$log) {
+function realizarAtaque(&$atacante, &$defensor, &$log)
+{
     $danio = daño($atacante, $defensor, $log); // Calcular el daño infligido
     $defensor['hp'] -= $danio; // Reducir la salud del defensor
 
@@ -86,7 +89,8 @@ function realizarAtaque(&$atacante, &$defensor, &$log) {
  * @param array $equipo2 El segundo equipo de Pokémon.
  * @return void
  */
-function combate($equipo1, $equipo2) {
+function combate($equipo1, $equipo2)
+{
     global $indice1, $indice2, $log; // Acceder a variables globales
 
     while ($indice1 < count($equipo1) && $indice2 < count($equipo2)) {
@@ -119,11 +123,11 @@ function combate($equipo1, $equipo2) {
 
             $speed_tie = mt_rand(1, 2); // Determinar quién ataca primero en caso de empate de velocidad
             if ($spe1 > $spe2 || ($spe1 == $spe2 && $speed_tie == 1)) {
+ 
                 // Pokémon del equipo 1 ataca primero
                 if (realizarAtaque($pokemon1, $pokemon2, $log)) {
                     break; // Si el Pokémon 2 se debilita, salir del bucle
                 }
-
                 // Pokémon del equipo 2 ataca
                 if (realizarAtaque($pokemon2, $pokemon1, $log)) {
                     break; // Si el Pokémon 1 se debilita, salir del bucle
@@ -133,6 +137,7 @@ function combate($equipo1, $equipo2) {
                 if (realizarAtaque($pokemon2, $pokemon1, $log)) {
                     break; // Si el Pokémon 1 se debilita, salir del bucle
                 }
+
 
                 // Pokémon del equipo 1 ataca
                 if (realizarAtaque($pokemon1, $pokemon2, $log)) {
@@ -161,18 +166,23 @@ function combate($equipo1, $equipo2) {
 // Ejecutar la función de combate
 combate($team1, $team2);
 
+ob_implicit_flush(true);
+ob_end_flush();
+
 // Enlace para volver al inicio
 $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Combate Pokémon</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <!-- Jugador 1 -->
@@ -195,7 +205,12 @@ $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
             <h1>Registro del Combate</h1>
             <div class="log">
                 <?php foreach ($log as $entry): ?>
-                    <p><?php echo $entry; ?></p>
+                    <p><?php 
+                        ob_flush();
+                        flush();
+                        usleep(500000);
+                        echo $entry; 
+                    ?></p>
                 <?php endforeach; ?>
             </div>
         </aside>
@@ -221,4 +236,5 @@ $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
         <?php echo $volverInicio; ?>
     </footer>
 </body>
+
 </html>
