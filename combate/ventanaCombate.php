@@ -185,6 +185,9 @@ function combate($equipo1, $equipo2)
     }
 }
 
+ob_implicit_flush(true);
+ob_end_flush();
+
 // Ejecutar la función de combate
 combate($team1, $team2);
 
@@ -247,6 +250,8 @@ $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
                         <?="<p>$entry</p>"?>
                     <?php endif;?>
                     <?php
+                        ob_flush();
+                        flush();
                         usleep(500000);
                     ?>
                 <?php endforeach; ?>
