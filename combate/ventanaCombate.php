@@ -10,7 +10,6 @@ if((isset($_POST['equipo1'])&&(isset($_POST['equipo2'])))){
     header("Location: ../inicio/inicio.php");
 }
 
-
 /**
  * Encuentra un Pokémon en la pokédex por su nombre.
  *

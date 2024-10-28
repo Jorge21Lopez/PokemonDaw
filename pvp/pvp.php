@@ -1,6 +1,10 @@
 <?php
 
-//funcion para generar equipos aleatorios sin pokemons repetidos
+/**
+ * Generar equipos aleatorios sin pokemons repetidos
+ * @param mixed $pokedex, que almacena todos los pokemon disponibles
+ * @return array
+ */
 function equipo_random($pokedex)
 {
 
@@ -26,6 +30,11 @@ function equipo_random($pokedex)
     return $equipo;
 }
 
+/**
+ * Verifica que no haya repetidos en el equipo
+ * @param array con los pokemon del equipo
+ * @return bool
+ */
 function no_repes($equipo)
 {
 
@@ -37,7 +46,12 @@ function no_repes($equipo)
     }
 }
 
-//recibe un array de strings y devuelve una matriz con los pokemons del array
+/**
+ * Proporciona el nombre e imagen de cada pokemon del equipo
+ * @param array con los pokemon del equipo
+ * @param mixed $pokedex de datos con los pokemon
+ * @return array{img: mixed, name: mixed[]}
+ */
 function select_pokemons($equipo, $pokedex)
 {
 
