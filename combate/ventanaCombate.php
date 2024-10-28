@@ -75,31 +75,6 @@ function realizarAtaque(&$atacante, &$defensor, &$log) {
     return false; // Continúa la batalla
 }
 
-// Obtener los Pokémon del equipo 1
-$team1 = [];
-foreach ($equipo1 as $nombre) {
-    $pokemon = obtenerPokemon($nombre, $pokedex);
-    if ($pokemon) {
-        $team1[] = $pokemon; // Agregar Pokémon al equipo 1
-    }
-}
-
-// Obtener los Pokémon del equipo 2
-$team2 = [];
-foreach ($equipo2 as $nombre) {
-    $pokemon = obtenerPokemon($nombre, $pokedex);
-    if ($pokemon) {
-        $team2[] = $pokemon; // Agregar Pokémon al equipo 2
-    }
-}
-
-// Inicializar los índices de los Pokémon activos
-$indice1 = 0; // Índice del Pokémon actual del equipo 1
-$indice2 = 0; // Índice del Pokémon actual del equipo 2
-
-// Almacenar el registro de combate
-$log = [];
-
 /**
  * Simula el combate entre dos equipos de Pokémon.
  *
@@ -121,13 +96,30 @@ function combate($equipo1, $equipo2) {
 
         // Turnos alternos de ataque
         while ($pokemon1['hp'] > 0 && $pokemon2['hp'] > 0) {
+
+            // Omitir los turnos si ambos hacen 1 de daño
+            $danio1 = daño($pokemon1, $pokemon2, $log);
+            $danio2 = daño($pokemon2, $pokemon1, $log);
+            if ($danio1 === 1 && $danio2 === 1) {
+                if ($pokemon1['hp'] < $pokemon2['hp']) {
+                    $pokemon2['hp'] -= $pokemon1['hp'];
+                    $pokemon1['hp'] = 0;
+                    $log[] = "{$pokemon1['name']} se debilita debido a daños mínimos.";
+                } else {
+                    $pokemon1['hp'] -= $pokemon2['hp'];
+                    $pokemon2['hp'] = 0;
+                    $log[] = "{$pokemon2['name']} se debilita debido a daños mínimos.";
+                }
+                break; // Saltar a la siguiente batalla
+            }
+
             $speed_tie = mt_rand(1, 2); // Determinar quién ataca primero en caso de empate de velocidad
             if ($spe1 > $spe2 || ($spe1 == $spe2 && $speed_tie == 1)) {
                 // Pokémon del equipo 1 ataca primero
                 if (realizarAtaque($pokemon1, $pokemon2, $log)) {
                     break; // Si el Pokémon 2 se debilita, salir del bucle
                 }
-        
+
                 // Pokémon del equipo 2 ataca
                 if (realizarAtaque($pokemon2, $pokemon1, $log)) {
                     break; // Si el Pokémon 1 se debilita, salir del bucle
@@ -137,7 +129,7 @@ function combate($equipo1, $equipo2) {
                 if (realizarAtaque($pokemon2, $pokemon1, $log)) {
                     break; // Si el Pokémon 1 se debilita, salir del bucle
                 }
-        
+
                 // Pokémon del equipo 1 ataca
                 if (realizarAtaque($pokemon1, $pokemon2, $log)) {
                     break; // Si el Pokémon 2 se debilita, salir del bucle
@@ -219,7 +211,7 @@ $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
             </div>
         </div>
     </div>
-
+    
     <!-- Enlace para volver al inicio -->
     <footer>
         <?php echo $volverInicio; ?>
