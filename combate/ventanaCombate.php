@@ -10,6 +10,28 @@ if ((isset($_POST['equipo1']) && (isset($_POST['equipo2'])))) {
     header("Location: ../inicio/inicio.php");
 }
 
+// Obtener los Pokémon del equipo 1
+$team1 = [];
+foreach ($equipo1 as $nombre) {
+    $pokemon = obtenerPokemon($nombre, $pokedex);
+    if ($pokemon) {
+        $team1[] = $pokemon; // Agregar Pokémon al equipo 1
+    }
+}
+// Obtener los Pokémon del equipo 2
+$team2 = [];
+foreach ($equipo2 as $nombre) {
+    $pokemon = obtenerPokemon($nombre, $pokedex);
+    if ($pokemon) {
+        $team2[] = $pokemon; // Agregar Pokémon al equipo 2
+    }
+}
+// Inicializar los índices de los Pokémon activos
+$indice1 = 0; // Índice del Pokémon actual del equipo 1
+$indice2 = 0; // Índice del Pokémon actual del equipo 2
+// Almacenar el registro de combate
+$log = [];
+
 /**
  * Encuentra un Pokémon en la pokédex por su nombre.
  *
@@ -166,8 +188,6 @@ function combate($equipo1, $equipo2)
 // Ejecutar la función de combate
 combate($team1, $team2);
 
-ob_implicit_flush(true);
-ob_end_flush();
 
 // Enlace para volver al inicio
 $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
@@ -227,8 +247,6 @@ $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
                         <?="<p>$entry</p>"?>
                     <?php endif;?>
                     <?php
-                        ob_flush();
-                        flush();
                         usleep(500000);
                     ?>
                 <?php endforeach; ?>
