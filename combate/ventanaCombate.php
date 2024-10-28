@@ -97,7 +97,7 @@ function combate($equipo1, $equipo2)
         $pokemon1 = &$equipo1[$indice1];
         $pokemon2 = &$equipo2[$indice2];
 
-        $log[] = "<h3>Combate: {$pokemon1['name']} vs {$pokemon2['name']}</h3>";
+        $log[] = "Combate: {$pokemon1['name']} vs {$pokemon2['name']}";
 
         $spe1 = $pokemon1['spe'];
         $spe2 = $pokemon2['spe'];
@@ -123,7 +123,7 @@ function combate($equipo1, $equipo2)
 
             $speed_tie = mt_rand(1, 2); // Determinar quién ataca primero en caso de empate de velocidad
             if ($spe1 > $spe2 || ($spe1 == $spe2 && $speed_tie == 1)) {
- 
+
                 // Pokémon del equipo 1 ataca primero
                 if (realizarAtaque($pokemon1, $pokemon2, $log)) {
                     break; // Si el Pokémon 2 se debilita, salir del bucle
@@ -181,6 +181,7 @@ $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Combate Pokémon</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 
 <body>
@@ -200,21 +201,6 @@ $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
             </div>
         </div>
 
-        <!-- Registro de combate -->
-        <aside>
-            <h1>Registro del Combate</h1>
-            <div class="log">
-                <?php foreach ($log as $entry): ?>
-                    <p><?php 
-                        ob_flush();
-                        flush();
-                        usleep(500000);
-                        echo $entry; 
-                    ?></p>
-                <?php endforeach; ?>
-            </div>
-        </aside>
-
         <!-- Jugador 2 -->
         <div class="player2">
             <h3>Equipo 2</h3>
@@ -229,6 +215,25 @@ $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
                 <?php endforeach; ?>
             </div>
         </div>
+
+        <!-- Registro de combate -->
+        <aside>
+            <h1>Registro del Combate</h1>
+            <div class="log" id="log">
+                <?php foreach ($log as $entry): ?>
+                    <?php if(substr($entry,0,3)=="Com"):?>
+                        <?="<h3>$entry</h3>"?>
+                    <?php else:?>
+                        <?="<p>$entry</p>"?>
+                    <?php endif;?>
+                    <?php
+                        ob_flush();
+                        flush();
+                        usleep(500000);
+                    ?>
+                <?php endforeach; ?>
+            </div>
+        </aside>
     </div>
     
     <!-- Enlace para volver al inicio -->
