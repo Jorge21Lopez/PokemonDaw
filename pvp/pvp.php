@@ -1,36 +1,6 @@
 <?php
 
 /**
- * Generar equipos aleatorios sin pokemons repetidos
- * @param mixed $pokedex, que almacena todos los pokemon disponibles
- * @return array
- */
-function equipo_random($pokedex)
-{
-
-    $equipo = [];
-    $tamaño_pokedex = count($pokedex) - 1;
-    for ($i = 0; $i < 6; $i++) {
-        $random = rand(0, $tamaño_pokedex);
-        $repe = false;
-        $poke_random = $pokedex[$random];
-        foreach ($equipo as $poke) {
-            if ($poke_random["name"] == $poke["name"]) {
-                $repe = true;
-                break;
-            }
-        }
-        if ($repe) {
-            $i--;
-        }
-        if (!$repe) {
-            $equipo[] = $poke_random;
-        }
-    }
-    return $equipo;
-}
-
-/**
  * Verifica que no haya repetidos en el equipo
  * @param array con los pokemon del equipo
  * @return bool

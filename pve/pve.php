@@ -191,6 +191,11 @@ $longitud_pokedex = count($pokedex);
 
     }
 
+    /**
+     * Una vez el equipo ha sido validado ejecutamos el metodo
+     * select_pokemons para obtener la imagen del pokemon y
+     * poder mostrarla.
+     */
     if ($equipo1_validado) {
 
         $equipo2 = equipo_random($pokedex);
@@ -219,7 +224,11 @@ $longitud_pokedex = count($pokedex);
                 }
                 ?>
             </div>
-            <!--Boton para enviar los pokes-->
+            <!--
+            Con este formulario paso los dos arrays de nombres de pokemons a la pagina de combate
+            alli mas adelante se extraen todos los datos para el calculo de los daños.
+            tambien hay un boton para volver a la pagina de inicio
+            -->
             <div class="formulario_enviar">
                 <form action="../combate/ventanaCombate.php" method="post">
                     <?php
