@@ -93,7 +93,7 @@ $longitud_pokedex = count($pokedex);
 
 <body>
     <!--Icono que te manda directamente al inicio-->
-    <a href="../inicio/inicio.php"><img class="esquina" src="../imgs/pokeball.png" alt="logo pokeball azul"></a>
+    <a href="../index.php"><img class="esquina" src="../imgs/pokeball.png" alt="logo pokeball azul"></a>
     
     <?php
 

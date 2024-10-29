@@ -13,7 +13,7 @@ if ((isset($_POST['equipo1']) && (isset($_POST['equipo2'])))) {
     $equipo1 = $_POST['equipo1'];
     $equipo2 = $_POST['equipo2'];
 } else {
-    header("Location: ../inicio/inicio.php");
+    header("Location: ../index.php");
 }
 
 // Obtener los Pokémon del equipo 1
@@ -200,7 +200,7 @@ combate($team1, $team2);
 
 
 // Enlace para volver al inicio
-$volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
+$volverInicio = '<a href="../index.php">Volver al inicio</a>';
 ?>
 
 <!DOCTYPE html>
