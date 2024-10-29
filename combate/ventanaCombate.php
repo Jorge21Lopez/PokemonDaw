@@ -3,9 +3,9 @@
 include '../pokedex.php';
 
 //volver al inicio
-if(isset($_POST["volver-pve"])){
+if (isset($_POST["volver-pve"])) {
     header("Location: ../pve/pve.php");
-}elseif(isset($_POST["volver-pvp"])){
+} elseif (isset($_POST["volver-pvp"])) {
     header("Location: ../pvp/pvp.php");
 }
 // Obtener el equipo 1 y el equipo 2
@@ -211,7 +211,15 @@ $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Combate Pokémon</title>
     <link rel="stylesheet" href="style.css">
-    
+    <script>
+        // Funcion para que el scroll del log baje atuomaticamente
+        function scrollToBottom() {
+            var logContainer = document.getElementById('log-aside');
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+    </script>
+
 </head>
 
 <body>
@@ -247,29 +255,34 @@ $volverInicio = '<a href="../inicio/inicio.php">Volver al inicio</a>';
         </div>
 
         <!-- Registro de combate -->
-        <aside>
+        <aside id="log-aside">
             <h1>Registro del Combate</h1>
             <div class="log" id="log">
                 <?php foreach ($log as $entry): ?>
-                    <?php if(substr($entry,0,3)=="Com"):?>
-                        <?="<h3>$entry</h3>"?>
-                    <?php else:?>
-                        <?="<p>$entry</p>"?>
-                    <?php endif;?>
+                    <?php if (substr($entry, 0, 3) == "Com"): ?>
+                        <?= "<h3>$entry</h3>" ?>
+                    <?php else: ?>
+                        <?= "<p>$entry</p>" ?>
+                    <?php endif; ?>
                     <?php
-                        ob_flush();
-                        flush();
-                        usleep(500000);
-                    ?>
+                    ob_flush();
+                    flush();
+                    usleep(500000);
+                    //llamada al metodo de JS para que el scroll baje solo
+                    echo '<script>scrollToBottom();</script>'; // Retardo de 100ms
+                    ?>                      
                 <?php endforeach; ?>
             </div>
         </aside>
     </div>
-    
+
     <!-- Enlace para volver al inicio -->
     <footer>
         <?php echo $volverInicio; ?>
     </footer>
+
+
+
 </body>
 
 </html>

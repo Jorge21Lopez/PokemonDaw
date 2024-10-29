@@ -319,7 +319,6 @@ $longitud_pokedex = count($pokedex);
                 </div>
 
             <?php
-            print_r($equipo1);
         }
 
             ?>
