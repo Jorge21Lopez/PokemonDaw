@@ -145,7 +145,84 @@ $electivire = [
     "tipo2" => ""
 ]; 
 
-$pokedex = [$garchomp,$charizard,$typhlosion,$umbreon,$vaporeon,$gengar,$hydreigon,$crobat,$muk,$gliscor,$aggron,$haxorus,$electivire];
+$amoonguss = [
+    "name"=>"amoonguss",
+    "hp"=>114,
+    "ataque"=>85,
+    "def"=>70,
+    "spe"=>30,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/amoonguss.gif' alt='Amoonguss'></a>",
+    "tipo1" => "planta",
+    "tipo2" => "veneno"
+]; 
+
+$serperior = [
+    "name"=>"serperior",
+    "hp"=>75,
+    "ataque"=>75,
+    "def"=>95,
+    "spe"=>113,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/serperior.gif' alt='Serperior'></a>",
+    "tipo1" => "planta",
+    "tipo2" => ""
+]; 
+
+$kingler = [
+    "name"=>"kingler",
+    "hp"=>55,
+    "ataque"=>130,
+    "def"=>115,
+    "spe"=>75,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/kingler.gif' alt='Kingler'></a>",
+    "tipo1" => "agua",
+    "tipo2" => ""
+]; 
+
+$volcarona = [
+    "name"=>"volcarona",
+    "hp"=>85,
+    "ataque"=>135,
+    "def"=>65,
+    "spe"=>100,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/volcarona.gif' alt='Volcarona'></a>",
+    "tipo1" => "bicho",
+    "tipo2" => "fuego"
+];
+
+$milotic = [
+    "name"=>"milotic",
+    "hp"=>95,
+    "ataque"=>100,
+    "def"=>79,
+    "spe"=>81,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/milotic.gif' alt='Milotic'></a>",
+    "tipo1" => "agua",
+    "tipo2" => ""
+];
+
+$krookodile = [
+    "name"=>"krookodile",
+    "hp"=>95,
+    "ataque"=>117,
+    "def"=>80,
+    "spe"=>92,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/krookodile.gif' alt='Krookodile'></a>",
+    "tipo1" => "tierra",
+    "tipo2" => "siniestro"
+];
+
+$hariyama = [
+    "name"=>"hariyama",
+    "hp"=>144,
+    "ataque"=>120,
+    "def"=>60,
+    "spe"=>50,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/hariyama.gif' alt='Hariyama'></a>",
+    "tipo1" => "lucha",
+    "tipo2" => ""
+];
+
+$pokedex = [$garchomp,$charizard,$typhlosion,$umbreon,$vaporeon,$gengar,$hydreigon,$crobat,$muk,$gliscor,$aggron,$haxorus,$electivire,$amoonguss,$serperior,$kingler,$volcaron,$milotic,$krookodile,$hariyama];
 
 /**
  * Proporciona el array de datos de un pokemon según su nombre, con probabilidad de que sea variocolor
