@@ -222,7 +222,75 @@ $hariyama = [
     "tipo2" => ""
 ];
 
-$pokedex = [$garchomp,$charizard,$typhlosion,$umbreon,$vaporeon,$gengar,$hydreigon,$crobat,$muk,$gliscor,$aggron,$haxorus,$electivire,$amoonguss,$serperior,$kingler,$volcaron,$milotic,$krookodile,$hariyama];
+$staraptor = [
+    "name"=>"staraptor",
+    "hp"=>85,
+    "ataque"=>120,
+    "def"=>70,
+    "spe"=>100,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/staraptor.gif' alt='Staraptor'></a>",
+    "tipo1" => "normal",
+    "tipo2" => "volador"
+];
+
+$hypno = [
+    "name"=>"hypno",
+    "hp"=>85,
+    "ataque"=>73,
+    "def"=>70,
+    "spe"=>67,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/hypno.gif' alt='Hypno'></a>",
+    "tipo1" => "normal",
+    "tipo2" => "volador"
+];
+
+$metagross = [
+    "name"=>"metagross",
+    "hp"=>80,
+    "ataque"=>135,
+    "def"=>130,
+    "spe"=>70,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/metagross.gif' alt='Metagross'></a>",
+    "tipo1" => "acero",
+    "tipo2" => "psíquico"
+];
+
+$weavile = [
+    "name"=>"weavile",
+    "hp"=>70,
+    "ataque"=>120,
+    "def"=>65,
+    "spe"=>125,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/weavile.gif' alt='Weavile'></a>",
+    "tipo1" => "siniestro",
+    "tipo2" => "hielo"
+];
+
+$torkoal = [
+    "name"=>"torkoal",
+    "hp"=>70,
+    "ataque"=>85,
+    "def"=>140,
+    "spe"=>20,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/torkoal.gif' alt='Torkoal'></a>",
+    "tipo1" => "fuego",
+    "tipo2" => ""
+];
+
+$jynx = [
+    "name"=>"jynx",
+    "hp"=>65,
+    "ataque"=>115,
+    "def"=>95,
+    "spe"=>95,
+    "img"=>"<img src='https://img.pokemondb.net/sprites/black-white/anim/normal/jynx.gif' alt='Jynx'></a>",
+    "tipo1" => "fuego",
+    "tipo2" => ""
+];
+
+
+$pokedex = [$garchomp,$charizard,$typhlosion,$umbreon,$vaporeon,$gengar,$hydreigon,$crobat,$muk,$gliscor,$aggron,$haxorus,
+$electivire,$amoonguss,$serperior,$kingler,$volcarona,$milotic,$krookodile,$hariyama,$staraptor,$hypno,$metagross,$weavile,$torkoal,$jynx];
 
 /**
  * Proporciona el array de datos de un pokemon según su nombre, con probabilidad de que sea variocolor
